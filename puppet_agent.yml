@@ -16,6 +16,15 @@
 
           - name: Installing puppet_agent
             apt:
-                      name: puppet-agent
-                      state: present
+                    name: puppet-agent
+                    state: present
+
+          - name: Configuring puppet agent
+            blockinfile:
+                    dest: /etc/puppetlabs/puppet/puppet.conf
+                    block: |
+                            [main]
+                            certname = slave
+                            server = master
+
 
