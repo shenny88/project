@@ -1,6 +1,7 @@
 FROM devopsedu/webapp
 RUN apt update
 RUN apt upgrade -y
+RUN mkdir -p /var/www/html/{content,template}
 COPY website/functions.php /var/www/html
 COPY website/content/about-us.php /var/www/html/content
 COPY website/content/home.php /var/www/html/content
