@@ -1,7 +1,6 @@
 ---
 - name: Install & Configure puppet agent on slave/test node
   hosts: slave
-  become_user: shenny
   become: true
   tasks:
           - name: Downloading puppet agent installer repository
