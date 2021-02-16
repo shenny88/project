@@ -1,0 +1,15 @@
+---
+- name: Install & Configure puppet agent on slave/test node
+  hosts: slave
+  become: true
+  tasks:
+          - name: Downloading puppet agent installer
+            get_url:
+                    url: https://apt.puppetlabs.com/puppet6-release-focal.deb
+                    dest: /home/jenkins_slave
+
+          - name: Installing puppet agent
+            shell: dpkg -i /home/jenkins_slave/puppet6-release-focal.deb
+            register: installation_output
+
+          - debug: msg="{{ installation_output.stdout_lines }}"
