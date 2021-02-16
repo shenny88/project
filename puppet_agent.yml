@@ -24,8 +24,8 @@
                     dest: /etc/puppetlabs/puppet/puppet.conf
                     block: |
                             [main]
-                            certname = slave
-                            server = master
+                            certname = puppetclient
+                            server = puppet
           
           - name: Starting puppet agent
             systemd:
