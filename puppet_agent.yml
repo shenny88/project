@@ -26,5 +26,9 @@
                             [main]
                             certname = slave
                             server = master
-
-
+          
+          - name: Starting puppet agent
+            systemd:
+                    name: puppet
+                    state: started
+                    enabled: yes
