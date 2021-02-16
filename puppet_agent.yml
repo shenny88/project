@@ -3,13 +3,19 @@
   hosts: slave
   become: true
   tasks:
-          - name: Downloading puppet agent installer
+          - name: Downloading puppet agent installer repository
             get_url:
                     url: https://apt.puppetlabs.com/puppet6-release-focal.deb
                     dest: /home/jenkins_slave
 
-          - name: Installing puppet agent
+          - name: Installing puppet agent repository
             shell: dpkg -i /home/jenkins_slave/puppet6-release-focal.deb
-            register: installation_output
 
-          - debug: msg="{{ installation_output.stdout_lines }}"
+          - name: Updating apt repo & cache
+            apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+          - name: Installing puppet_agent
+            apt:
+                      name: puppet-agent
+                      state: present
+
