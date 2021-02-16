@@ -13,3 +13,4 @@ COPY website/template/template.php /var/www/html/template
 COPY website/readme.md /var/www/html
 RUN curl https://raw.githubusercontent.com/shenny88/project/master/website.conf -o /etc/apache2/sites-available/000-default.conf
 EXPOSE 80
+CMD ["apachectl", "-D" , "FOREGROUND"]
