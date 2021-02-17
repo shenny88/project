@@ -30,9 +30,3 @@
         name: docker
         state: started
         enabled: yes
-
-    - name: executing dockerfile
-      shell: /usr/bin/docker build --file /home/jenkins_prod/workspace/job5_production_deployment/Dockerfile .
-
-    - name: creating docker
-      shell: /usr/bin/docker run -d -p 80:80 devopsproject:v1
