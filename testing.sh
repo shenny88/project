@@ -9,7 +9,7 @@ target_content="It is a long established fact that a reader will be distracted b
 curl "$target_website/$target_webpage" -o outfile
 
 #test case if pattern is matching
-if [[ "$(grep $target_content outfile)" ]];then
+if grep -F "$target_content" outfile;then
   echo "success"
   exit 0
 else
