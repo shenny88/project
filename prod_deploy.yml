@@ -1,0 +1,38 @@
+---
+- name: deploying website in production environment
+  hosts: prod
+  become: true
+  tasks:
+    - name: Install curl
+      apt:
+        name: curl
+        state: present
+
+    - name: Download docker key
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+    - name: Adding docker repo
+      shell: /usr/bin/add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+    - name: Updating repo
+      shell: /usr/bin/apt-get update
+
+    - name: docker cache
+      shell: /usr/bin/apt-cache policy docker-ce
+
+    - name: install docker
+      apt:
+        name: docker-ce
+        state: present
+
+    - name: starting docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: executing dockerfile
+      shell: /usr/bin/docker build --file /home/jenkins_prod/workspace/job5_production_deployment/Dockerfile .
+
+    - name: creating docker
+      shell: /usr/bin/docker run -d -p 80:80 devopsproject:v1
